@@ -5,6 +5,8 @@ library(tidyverse)
 library(dplyr)
 library(raincloudplots)
 
+library (patchwork)
+
 #Define colors - unfamiliar
 unfamiliar_upright_col = '#FF3030'
 unfamiliar_inverted_col = "#836FFF"
@@ -105,3 +107,56 @@ faces_2x3_time <- raincloud_2x3_repmes(
   labs(title = "Threshold recognition times for face presentation") +
   theme_classic()
 faces_2x3_time
+
+p1 <- ggplot(Mean_Frames, aes(x=Age, y=Unfamiliar_Upright*(1000/120))) +
+  geom_point(shape=1) +    # Use hollow circles
+  geom_smooth(method=lm,color="black") +  # Add linear regression line 
+  #  (by default includes 95% confidence region)
+  labs(x="Age", y = "Unfamiliar Upright Frame Time (ms)")+
+  ylim (0, 200)+
+  theme_classic() 
+
+p2 <- ggplot(Mean_Frames, aes(x=Age, y=Familiar_Upright*(1000/120))) +
+  geom_point(shape=1) +    # Use hollow circles
+  geom_smooth(method=lm,color="black") +  # Add linear regression line 
+  #  (by default includes 95% confidence region)
+  labs(x="Age", y = "Familiar Upright Frame Time (ms)")+
+  ylim (0, 200)+
+  theme_classic() 
+
+
+p3 <- ggplot(Mean_Frames, aes(x=Age, y=Self_Upright*(1000/120))) +
+  geom_point(shape=1) +    # Use hollow circles
+  geom_smooth(method=lm,color="black") +  # Add linear regression line 
+  #  (by default includes 95% confidence region)
+  labs(x="Age", y = "Self Upright Frame Time (ms)")+
+  ylim (0, 200)+
+  theme_classic() 
+
+
+p4 <- ggplot(Mean_Frames, aes(x=Age, y=Unfamiliar_Inverted*(1000/120))) +
+  geom_point(shape=1) +    # Use hollow circles
+  geom_smooth(method=lm,color="black") +  # Add linear regression line 
+  #  (by default includes 95% confidence region)
+  labs(x="Age", y = "Unfamiliar Inverted Frame Time (ms)")+
+  ylim (0, 220)+
+  theme_classic() 
+
+p5 <- ggplot(Mean_Frames, aes(x=Age, y=Familiar_Inverted*(1000/120))) +
+  geom_point(shape=1) +    # Use hollow circles
+  geom_smooth(method=lm,color="black") +  # Add linear regression line 
+  #  (by default includes 95% confidence region)
+  labs(x="Age", y = "Familiar Inverted Frame Time (ms)")+
+  ylim (0, 220)+
+  theme_classic() 
+
+
+p6 <- ggplot(Mean_Frames, aes(x=Age, y=Self_Inverted*(1000/120))) +
+  geom_point(shape=1) +    # Use hollow circles
+  geom_smooth(method=lm,color="black") +  # Add linear regression line 
+  #  (by default includes 95% confidence region)
+  labs(x="Age", y = "Self Inverted Frame Time (ms)")+
+  ylim (0, 220)+
+  theme_classic() 
+
+p1 + p2 + p3 + p4 + p5 + p6
